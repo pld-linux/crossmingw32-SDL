@@ -17,6 +17,7 @@ URL:		http://www.libsdl.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	crossmingw32-gcc
+BuildRequires:	crossmingw32-runtime
 BuildRequires:	crossmingw32-w32api
 BuildRequires:	crossmingw32-w32api-dx
 BuildRequires:	libtool >= 2:1.4d
