@@ -3,7 +3,7 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - Mingw32 cros
 Summary(pl):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skro¶na dla Mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.2.8
-Release:	1
+Release:	1.20040916.1
 License:	LGPL
 Group:		X11/Libraries
 #Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
