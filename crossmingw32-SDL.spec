@@ -21,6 +21,7 @@ BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-w32api
 BuildRequires:	crossmingw32-w32api-dx
 BuildRequires:	libtool >= 2:1.4d
+BuildConflicts:	crossmingw32-dx70
 %ifarch %{ix86}
 BuildRequires:	nasm
 %endif
@@ -109,7 +110,10 @@ cat sdl-config | sed -e 's@-I/usr/include/SDL@-I%{arch}/include/SDL@' \
 	-e 's@libdirs="-L/usr/lib"@libdirs="-L%{arch}/lib"@' > sdl.new
 mv -f sdl.new sdl-config
 
+%if 0%{!?debug:1}
 %{target}-strip src/.libs/SDL.dll
+%{target}-strip -g -R.comment -R.note src/.libs/*.a
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
