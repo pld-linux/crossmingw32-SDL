@@ -1,0 +1,22 @@
+--- SDL-1.2.1/sdl-config.in.fixlibs	Fri Jun 29 12:51:57 2001
++++ SDL-1.2.1/sdl-config.in	Fri Jun 29 12:54:30 2001
+@@ -47,15 +47,10 @@
+       fi
+       echo $includes -I@includedir@/SDL @SDL_CFLAGS@
+       ;;
+-@ENABLE_SHARED_TRUE@    --libs)
+-@ENABLE_SHARED_TRUE@      libdirs="-L@libdir@ @SDL_RLD_FLAGS@"
+-@ENABLE_SHARED_TRUE@      echo $libdirs @SDL_LIBS@
+-@ENABLE_SHARED_TRUE@      ;;
+-@ENABLE_STATIC_TRUE@@ENABLE_SHARED_TRUE@    --static-libs)
+-@ENABLE_STATIC_TRUE@@ENABLE_SHARED_FALSE@    --libs|--static-libs)
+-@ENABLE_STATIC_TRUE@      libdirs="-L@libdir@ @SDL_RLD_FLAGS@"
+-@ENABLE_STATIC_TRUE@      echo $libdirs @SDL_LIBS@ @SYSTEM_LIBS@
+-@ENABLE_STATIC_TRUE@      ;;
++@ENABLE_SHARED_TRUE@@ENABLE_STATIC_TRUE@    --libs|--static-libs)
++@ENABLE_SHARED_TRUE@@ENABLE_STATIC_TRUE@      libdirs="-L@libdir@ @SDL_RLD_FLAGS@"
++@ENABLE_SHARED_TRUE@@ENABLE_STATIC_TRUE@      echo $libdirs @SDL_LIBS@ @SYSTEM_LIBS@
++@ENABLE_SHARED_TRUE@@ENABLE_STATIC_TRUE@      ;;
+     *)
+       echo "${usage}" 1>&2
+       exit 1
