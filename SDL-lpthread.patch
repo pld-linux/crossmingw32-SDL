@@ -1,0 +1,11 @@
+--- SDL-1.2.2/configure.in.orig	Fri Oct 19 22:09:46 2001
++++ SDL-1.2.2/configure.in	Fri Oct 19 22:16:25 2001
+@@ -979,7 +979,7 @@
+         if test x$use_pthreads = xyes; then
+             CFLAGS="$CFLAGS $pthread_cflags -DSDL_USE_PTHREADS"
+             SDL_CFLAGS="$SDL_CFLAGS $pthread_cflags"
+-            SDL_LIBS="$SDL_LIBS $pthread_lib"
++            SYSTEM_LIBS="$SYSTEM_LIBS $pthread_lib"
+ 
+             # Check to see if recursive mutexes are available
+             AC_MSG_CHECKING(for recursive mutexes)

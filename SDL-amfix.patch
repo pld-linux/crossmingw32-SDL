@@ -1,0 +1,10 @@
+--- SDL-1.2.2/configure.in.orig	Mon Jul 23 21:54:03 2001
++++ SDL-1.2.2/configure.in	Fri Oct 19 22:05:53 2001
+@@ -50,6 +50,7 @@
+ AM_PROG_LIBTOOL
+ AC_PROG_MAKE_SET
+ AC_PROG_CC
++AM_PROG_AS
+ AC_C_INLINE
+ AC_C_CONST
+ case "$target" in
