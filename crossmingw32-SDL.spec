@@ -39,6 +39,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		__cc		%{target}-gcc
 %define		__cxx		%{target}-g++
 
+%ifarch alpha sparc sparc64 sparcv9
+# alpha's -mieee and sparc's -mtune=* are not valid for target's gcc
+%define		optflags	-O2
+%endif
+
 %description
 SDL (Simple DirectMedia Layer) is a library that allows you portable,
 low level access to a video framebuffer, audio output, mouse, and
