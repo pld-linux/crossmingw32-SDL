@@ -1,11 +1,6 @@
 %define		realname	SDL
-Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
-Summary(es):	Simple DirectMedia Layer
-Summary(pl):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
-Summary(pt_BR):	Simple DirectMedia Layer
-Summary(ru):	Simple DirectMedia Layer
-Summary(uk):	Simple DirectMedia Layer
-Summary(zh_CN):	SDL (Simple DirectMedia Layer) Generic APIs - ÓÎÏ·/¶àÃ½Ìå¿â
+Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - Mingw32 cross version
+Summary(pl):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skro¶na dla Mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.2.7
 Release:	1
