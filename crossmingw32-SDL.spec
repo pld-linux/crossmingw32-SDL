@@ -22,9 +22,9 @@ Patch5:		%{realname}-no_rpath_in_sdl-config.patch
 URL:		http://www.libsdl.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	crossmingw32-dx50
 BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-w32api
+BuildRequires:	crossmingw32-w32api-dx
 BuildRequires:	libtool >= 2:1.4d
 %ifarch %{ix86}
 BuildRequires:	nasm
@@ -63,72 +63,16 @@ baixo nМvel a Аudio, teclado, mouse e vМdeo em vАrias plataformas.
 
 Essa biblioteca И usada por alguns jogos.
 
-%package devel
-Summary:	SDL - Header files
-Summary(pl):	SDL - Pliki nagЁСwkowe
-Summary(pt_BR):	Bibliotecas e arquivos de cabeГalho para aplicaГУes SDL
-Summary(ru):	Файлы, необходимые для разработки программ, использующих SDL
-Summary(uk):	Файли, необх╕дн╕ для розробки програм, що використовують SDL
-Summary(zh_CN):	SDL (Simple DirectMedia Layer) ©╙╥╒©Б
-Group:		X11/Development/Libraries
-Requires:	%{name} = %{version}
-Requires:	XFree86-devel >= 4.0.2
+%package dll
+Summary:	SDL - DLL library for Windows
+Summary(pl):	SDL - biblioteka DLL dla Windows
+Group:		Applications/Emulators
 
-%description devel
-SDL - Header files.
+%description dll
+SDL - DLL library for Windows.
 
-%description devel -l pl
-SDL - Pliki nagЁСwkowe.
-
-%description devel -l pt_BR
-Esse pacote contИm bibliotecas, arquivos de cabeГalho e outros
-recursos para o desenvolvimento de aplicativos com SDL.
-
-%description devel -l ru
-Этот пакет содержит файлы, необходимые для разработки программ,
-использующих SDL.
-
-%description devel -l uk
-Цей пакет м╕стить файли, необх╕дн╕ для розробки програм, що
-використовують SDL.
-
-%package static
-Summary:	SDL - static libraries
-Summary(pl):	SDL - biblioteki statyczne
-Summary(pt_BR):	Biblioteca estАtica para desenvolvimento de aplicaГУes com a SDL
-Summary(ru):	Статические библиотеки для разработки с использованием SDL
-Summary(uk):	Статичн╕ б╕бл╕отеки для розробки з використанням SDL
-Group:		X11/Development/Libraries
-Requires:	%{name}-devel = %{version}
-
-%description static
-SDL - static libraries.
-
-%description static -l pl
-SDL - biblioteki statyczne.
-
-%description static -l pt_BR
-Biblioteca estАtica para desenvolvimento de aplicaГУes com a SDL.
-
-%description static -l ru
-Этот пакет содержит статические библиотеки для разработки программ,
-использующих SDL.
-
-%description static -l uk
-Цей пакет м╕стить статичн╕ б╕бл╕отеки для розробки програм, що
-використовують SDL.
-
-%package examples
-Summary:	SDL - example programs
-Summary(pl):	SDL - programy przykЁadowe
-Group:		X11/Development/Libraries
-Requires:	%{name}-devel = %{version}
-
-%description examples
-SDL - example programs.
-
-%description examples -l pl
-SDL - przykЁadowe programy.
+%description dll -l pl
+SDL - biblioteka DLL dla Windows.
 
 %prep
 %setup -q -n %{realname}-1.2
@@ -161,7 +105,8 @@ TARGET="%{target}" ; export TARGET
 %else
 	--disable-nasm \
 %endif
-	--prefix=%{arch}
+	--prefix=%{arch} \
+	--disable-stdio-redirect
 
 %{__make}
 
@@ -169,14 +114,18 @@ cat sdl-config | sed -e 's@-I/usr/include/SDL@-I%{arch}/include/SDL@' \
 	-e 's@libdirs="-L/usr/lib"@libdirs="-L%{arch}/lib"@' > sdl.new
 mv -f sdl.new sdl-config
 
+%{target}-strip src/.libs/SDL.dll
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{arch}/{bin,include/SDL,lib}
 install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT%{_datadir}/wine/windows/system
 
 install include/*.h $RPM_BUILD_ROOT%{arch}/include/SDL
 install sdl-config $RPM_BUILD_ROOT%{arch}/bin/sdl-config
-install src/.libs/libSDL.a src/main/libSDLmain.a $RPM_BUILD_ROOT%{arch}/lib
+install src/.libs/libSDL{,.dll}.a src/main/libSDLmain.a $RPM_BUILD_ROOT%{arch}/lib
+install src/.libs/SDL.dll $RPM_BUILD_ROOT%{_datadir}/wine/windows/system/
 
 ln -s %{arch}/bin/sdl-config $RPM_BUILD_ROOT%{_bindir}/%{target}-sdl-config
 
@@ -189,3 +138,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{arch}/bin/*
 %{arch}/include/SDL
 %{arch}/lib/*
+
+%files dll
+%defattr(644,root,root,755)
+%{_datadir}/wine/windows/system/*
