@@ -3,16 +3,14 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - Mingw32 cros
 Summary(pl):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skro¶na dla Mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.2.7
-Release:	2
+Release:	3
 License:	LGPL
 Group:		X11/Libraries
-Source0:	http://www.libsdl.org/cvs/SDL-1.2.tar.gz
-# Source0-md5:	a925e42b258eb25d0041bd88d5704e8f
+Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
+# Source0-md5:	d29b34b6ba3ed213893fc9d8d35e357a
 Patch0:		%{realname}-byteorder.patch
-Patch1:		%{realname}-fixlibs.patch
 Patch2:		%{realname}-amfix.patch
 Patch3:		%{realname}-lpthread.patch
-Patch4:		%{realname}-no_rpath_in_sdl-config.patch
 URL:		http://www.libsdl.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -76,12 +74,10 @@ SDL - DLL library for Windows.
 SDL - biblioteka DLL dla Windows.
 
 %prep
-%setup -q -n %{realname}-1.2
+%setup -q -n %{realname}-%{version}
 %patch0 -p1
-%patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
 
 %build
 CC=%{target}-gcc ; export CC
@@ -111,7 +107,7 @@ TARGET="%{target}" ; export TARGET
 %{__make}
 
 cat sdl-config | sed -e 's@-I/usr/include/SDL@-I%{arch}/include/SDL@' \
-	-e 's@libdirs="-L/usr/lib"@libdirs="-L%{arch}/lib"@' > sdl.new
+	-e 's@libdirs="-L/usr/lib "@libdirs="-L%{arch}/lib"@' > sdl.new
 mv -f sdl.new sdl-config
 
 %if 0%{!?debug:1}
