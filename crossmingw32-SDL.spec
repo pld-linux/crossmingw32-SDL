@@ -1,0 +1,215 @@
+%define		realname	SDL
+Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
+Summary(es):	Simple DirectMedia Layer
+Summary(pl):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów
+Summary(pt_BR):	Simple DirectMedia Layer
+Summary(ru):	Simple DirectMedia Layer
+Summary(uk):	Simple DirectMedia Layer
+Summary(zh_CN):	SDL (Simple DirectMedia Layer) Generic APIs - ÓÎÏ·/¶àÃ½Ìå¿â
+Name:		crossmingw32-%{realname}
+Version:	1.2.6
+Release:	1
+License:	LGPL
+Group:		X11/Libraries
+Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
+# Source0-md5:	9011f147f23ec535515291d0c9c6904c
+Patch0:		%{realname}-byteorder.patch
+Patch1:		%{realname}-fixlibs.patch
+Patch2:		%{realname}-amfix.patch
+Patch3:		%{realname}-lpthread.patch
+Patch4:		%{realname}-ac25x.patch
+Patch5:		%{realname}-no_rpath_in_sdl-config.patch
+Patch6:		%{realname}-noobjc.patch
+Patch7:		%{realname}-am17.patch
+Patch8:		%{realname}-lt15.patch
+URL:		http://www.libsdl.org/
+BuildRequires:	OpenGL-devel
+BuildRequires:	XFree86-devel >= 4.0.2
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	crossmingw32-gcc
+BuildRequires:	crossmingw32-dx70
+BuildRequires:	libtool >= 2:1.4d
+%ifarch %{ix86}
+BuildRequires:	nasm
+%endif
+BuildRequires:	perl-modules
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		no_install_post_strip	1
+
+%define		target		i386-mingw32
+%define		target_platform	i386-pc-mingw32
+%define		arch		%{_prefix}/%{target}
+%define		gccarch		%{_prefix}/lib/gcc-lib/%{target}
+%define		gcclib		%{_prefix}/lib/gcc-lib/%{target}/%{version}
+
+%define		__cc		%{target}-gcc
+%define		__cxx		%{target}-g++
+
+%description
+SDL (Simple DirectMedia Layer) is a library that allows you portable,
+low level access to a video framebuffer, audio output, mouse, and
+keyboard. It can support both windowed and DGA modes of XFree86, and
+it is designed to be portable - applications linked with SDL can also
+be built on Win32 and BeOS.
+
+%description -l pl
+SDL (Simple DirectMedia Layer) jest bibliotek± udostêpniaj±c±
+przeno¶ny, niskopoziomowy dostêp do bufora ramki video, wyj¶cia audio,
+myszy oraz klawiatury. Mo¿e obs³ugiwaæ zarówno okienkowy tryb XFree86
+jak i DGA. Konstruuj±c j± miano na uwadze przeno¶no¶æ: aplikacje
+konsolidowane z SDL mo¿na równie¿ budowaæ w systemach Win32 i BeOS.
+
+%description -l pt_BR
+Esse é o Simple DirectMedia Layer, uma API genérica que dá acesso de
+baixo nível a áudio, teclado, mouse e vídeo em várias plataformas.
+
+Essa biblioteca é usada por alguns jogos.
+
+%package devel
+Summary:	SDL - Header files
+Summary(pl):	SDL - Pliki nag³ówkowe
+Summary(pt_BR):	Bibliotecas e arquivos de cabeçalho para aplicações SDL
+Summary(ru):	æÁÊÌÙ, ÎÅÏÂÈÏÄÉÍÙÅ ÄÌÑ ÒÁÚÒÁÂÏÔËÉ ÐÒÏÇÒÁÍÍ, ÉÓÐÏÌØÚÕÀÝÉÈ SDL
+Summary(uk):	æÁÊÌÉ, ÎÅÏÂÈ¦ÄÎ¦ ÄÌÑ ÒÏÚÒÏÂËÉ ÐÒÏÇÒÁÍ, ÝÏ ×ÉËÏÒÉÓÔÏ×ÕÀÔØ SDL
+Summary(zh_CN):	SDL (Simple DirectMedia Layer) ¿ª·¢¿â
+Group:		X11/Development/Libraries
+Requires:	%{name} = %{version}
+Requires:	XFree86-devel >= 4.0.2
+%ifnarch sparc sparc64
+%{!?_without_alsa:Requires:	alsa-lib-devel}
+%endif
+%{!?_without_arts:Requires:	arts-devel}
+%{!?_without_esound:Requires:	esound-devel}
+%{?_with_nas:Requires:	nas-devel}
+
+%description devel
+SDL - Header files.
+
+%description devel -l pl
+SDL - Pliki nag³ówkowe.
+
+%description devel -l pt_BR
+Esse pacote contém bibliotecas, arquivos de cabeçalho e outros
+recursos para o desenvolvimento de aplicativos com SDL.
+
+%description devel -l ru
+üÔÏÔ ÐÁËÅÔ ÓÏÄÅÒÖÉÔ ÆÁÊÌÙ, ÎÅÏÂÈÏÄÉÍÙÅ ÄÌÑ ÒÁÚÒÁÂÏÔËÉ ÐÒÏÇÒÁÍÍ,
+ÉÓÐÏÌØÚÕÀÝÉÈ SDL.
+
+%description devel -l uk
+ãÅÊ ÐÁËÅÔ Í¦ÓÔÉÔØ ÆÁÊÌÉ, ÎÅÏÂÈ¦ÄÎ¦ ÄÌÑ ÒÏÚÒÏÂËÉ ÐÒÏÇÒÁÍ, ÝÏ
+×ÉËÏÒÉÓÔÏ×ÕÀÔØ SDL.
+
+%package static
+Summary:	SDL - static libraries
+Summary(pl):	SDL - biblioteki statyczne
+Summary(pt_BR):	Biblioteca estática para desenvolvimento de aplicações com a SDL
+Summary(ru):	óÔÁÔÉÞÅÓËÉÅ ÂÉÂÌÉÏÔÅËÉ ÄÌÑ ÒÁÚÒÁÂÏÔËÉ Ó ÉÓÐÏÌØÚÏ×ÁÎÉÅÍ SDL
+Summary(uk):	óÔÁÔÉÞÎ¦ Â¦ÂÌ¦ÏÔÅËÉ ÄÌÑ ÒÏÚÒÏÂËÉ Ú ×ÉËÏÒÉÓÔÁÎÎÑÍ SDL
+Group:		X11/Development/Libraries
+Requires:	%{name}-devel = %{version}
+
+%description static
+SDL - static libraries.
+
+%description static -l pl
+SDL - biblioteki statyczne.
+
+%description static -l pt_BR
+Biblioteca estática para desenvolvimento de aplicações com a SDL.
+
+%description static -l ru
+üÔÏÔ ÐÁËÅÔ ÓÏÄÅÒÖÉÔ ÓÔÁÔÉÞÅÓËÉÅ ÂÉÂÌÉÏÔÅËÉ ÄÌÑ ÒÁÚÒÁÂÏÔËÉ ÐÒÏÇÒÁÍÍ,
+ÉÓÐÏÌØÚÕÀÝÉÈ SDL.
+
+%description static -l uk
+ãÅÊ ÐÁËÅÔ Í¦ÓÔÉÔØ ÓÔÁÔÉÞÎ¦ Â¦ÂÌ¦ÏÔÅËÉ ÄÌÑ ÒÏÚÒÏÂËÉ ÐÒÏÇÒÁÍ, ÝÏ
+×ÉËÏÒÉÓÔÏ×ÕÀÔØ SDL.
+
+%package examples
+Summary:	SDL - example programs
+Summary(pl):	SDL - programy przyk³adowe
+Group:		X11/Development/Libraries
+Requires:	%{name}-devel = %{version}
+
+%description examples
+SDL - example programs.
+
+%description examples -l pl
+SDL - przyk³adowe programy.
+
+%prep
+%setup -q -n %{realname}-%{version}
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
+#%%patch6 -p1
+#%%patch7 -p1
+%patch8 -p1
+
+# get COPY_ARCH_SRC, remove the rest
+head -n 16 acinclude.m4 > acinclude.tmp
+mv -f acinclude.tmp acinclude.m4
+
+find . -type d -name CVS -print | xargs rm -rf {} \;
+
+
+
+%build
+CC=%{target}-gcc ; export CC
+CXX=%{target}-g++ ; export CXX
+LD=%{target}-ld ; export LD
+AR=%{target}-ar ; export AR
+AS=%{target}-as ; export AS
+CROSS_COMPILE=1 ; export CROSS_COMPILE
+CPPFLAGS="-I%{arch}/include" ; export CPPFLAGS
+RANLIB=%{target}-ranlib ; export RANLIB
+LDSHARED="%{target}-gcc -shared" ; export LDSHARED
+TARGET="%{target}" ; export TARGET
+
+rm -f missing libtool
+%{__libtoolize}
+%{__aclocal}
+%{__automake}
+%{__autoconf}
+%configure \
+	--target=%{target} \
+	--host=%{target} \
+	--build=i386-linux \
+%ifarch %{ix86}
+	--enable-nasm \
+%else
+	--disable-nasm \
+%endif
+	--prefix=%{arch}
+
+%{__make}
+
+cat sdl-config | sed -e 's@-I/usr/include/SDL@-I/%{arch}/include/SDL@' > sdl.new
+mv -f sdl.new sdl-config
+
+%install
+rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{arch}/{bin,include/SDL,lib}
+install -d $RPM_BUILD_ROOT%{_bindir}
+
+install include/*.h $RPM_BUILD_ROOT%{arch}/include/SDL
+install sdl-config $RPM_BUILD_ROOT%{arch}/bin/sdl-config
+install src/.libs/libSDL.a src/main/libSDLmain.a $RPM_BUILD_ROOT%{arch}/lib
+
+ln -s %{arch}/bin/sdl-config $RPM_BUILD_ROOT%{_bindir}/%{target}-sdl-config
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+%files
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/*
+%attr(755,root,root) %{arch}/bin/*
+%{arch}/include/SDL
+%{arch}/lib/*
