@@ -1,0 +1,11 @@
+--- SDL-1.2/src/hermes/Makefile.am.orig	2003-05-29 06:23:03.000000000 +0200
++++ SDL-1.2/src/hermes/Makefile.am	2003-07-31 22:54:05.000000000 +0200
+@@ -7,7 +7,7 @@
+ SUFFIXES = .asm
+ 
+ .asm.lo:
+-	$(LIBTOOL) --mode=compile $(STRIP_FPIC) $(NASM) @NASMFLAGS@ $< -o $*.o
++	$(LIBTOOL) --mode=compile --tag=NASM $(STRIP_FPIC) $(NASM) @NASMFLAGS@ $< -o $*.o
+ 
+ ###########################################################################
+ 
