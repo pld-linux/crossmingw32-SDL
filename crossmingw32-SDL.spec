@@ -1,10 +1,3 @@
-#
-# Conditional build:
-# _without_alsa	- without alsa support
-# _without_arts	- without arts support
-# _without_esd	- without esound support
-# _with_nas	- with nas support
-#
 %define		realname	SDL
 Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(es):	Simple DirectMedia Layer
@@ -14,28 +7,24 @@ Summary(ru):	Simple DirectMedia Layer
 Summary(uk):	Simple DirectMedia Layer
 Summary(zh_CN):	SDL (Simple DirectMedia Layer) Generic APIs - 游戏/多媒体库
 Name:		crossmingw32-%{realname}
-Version:	1.2.6
+Version:	1.2.7
 Release:	1
 License:	LGPL
 Group:		X11/Libraries
-Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
-# Source0-md5:	9011f147f23ec535515291d0c9c6904c
+Source0:	http://www.libsdl.org/cvs/SDL-1.2.tar.gz
+# Source0-md5:	a925e42b258eb25d0041bd88d5704e8f
 Patch0:		%{realname}-byteorder.patch
 Patch1:		%{realname}-fixlibs.patch
 Patch2:		%{realname}-amfix.patch
 Patch3:		%{realname}-lpthread.patch
 Patch4:		%{realname}-ac25x.patch
 Patch5:		%{realname}-no_rpath_in_sdl-config.patch
-Patch6:		%{realname}-noobjc.patch
-Patch7:		%{realname}-am17.patch
-Patch8:		%{realname}-lt15.patch
 URL:		http://www.libsdl.org/
-BuildRequires:	OpenGL-devel
-BuildRequires:	XFree86-devel >= 4.0.2
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	crossmingw32-dx50
 BuildRequires:	crossmingw32-gcc
-BuildRequires:	crossmingw32-dx70
+BuildRequires:	crossmingw32-w32api
 BuildRequires:	libtool >= 2:1.4d
 %ifarch %{ix86}
 BuildRequires:	nasm
@@ -84,10 +73,6 @@ Summary(zh_CN):	SDL (Simple DirectMedia Layer) 开发库
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}
 Requires:	XFree86-devel >= 4.0.2
-%{!?_without_alsa:Requires:	alsa-lib-devel}
-%{!?_without_arts:Requires:	arts-devel}
-%{!?_without_esd:Requires:	esound-devel}
-%{?_with_nas:Requires:	nas-devel}
 
 %description devel
 SDL - Header files.
@@ -146,24 +131,13 @@ SDL - example programs.
 SDL - przyk砤dowe programy.
 
 %prep
-%setup -q -n %{realname}-%{version}
+%setup -q -n %{realname}-1.2
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
-#%%patch6 -p1
-#%%patch7 -p1
-%patch8 -p1
-
-# get COPY_ARCH_SRC, remove the rest
-head -n 16 acinclude.m4 > acinclude.tmp
-mv -f acinclude.tmp acinclude.m4
-
-find . -type d -name CVS -print | xargs rm -rf {} \;
-
-
 
 %build
 CC=%{target}-gcc ; export CC
@@ -177,11 +151,7 @@ RANLIB=%{target}-ranlib ; export RANLIB
 LDSHARED="%{target}-gcc -shared" ; export LDSHARED
 TARGET="%{target}" ; export TARGET
 
-rm -f missing libtool
-%{__libtoolize}
-%{__aclocal}
-%{__automake}
-%{__autoconf}
+./autogen.sh
 %configure \
 	--target=%{target} \
 	--host=%{target} \
@@ -195,7 +165,8 @@ rm -f missing libtool
 
 %{__make}
 
-cat sdl-config | sed -e 's@-I/usr/include/SDL@-I/%{arch}/include/SDL@' > sdl.new
+cat sdl-config | sed -e 's@-I/usr/include/SDL@-I%{arch}/include/SDL@' \
+	-e 's@libdirs="-L/usr/lib"@libdirs="-L%{arch}/lib"@' > sdl.new
 mv -f sdl.new sdl-config
 
 %install
