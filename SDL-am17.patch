@@ -1,9 +1,0 @@
-diff -Nru SDL-1.2.5.orig/src/video/ggi/Makefile.am SDL-1.2.5/src/video/ggi/Makefile.am
---- SDL-1.2.5.orig/src/video/ggi/Makefile.am	Thu Apr 26 18:45:46 2001
-+++ SDL-1.2.5/src/video/ggi/Makefile.am	Thu Apr 24 19:32:11 2003
-@@ -13,4 +13,4 @@
- 	SDL_ggimouse.c		\
- 	SDL_ggivideo.c		\
- 	SDL_ggievents_c.h	\
--       	SDL_ggimouse_c.h	\
-+       	SDL_ggimouse_c.h
