@@ -5,7 +5,7 @@
        ;;
  @ENABLE_SHARED_TRUE@@ENABLE_STATIC_TRUE@    --libs|--static-libs)
 -@ENABLE_SHARED_TRUE@@ENABLE_STATIC_TRUE@      libdirs="-L@libdir@ @SDL_RLD_FLAGS@"
-+@ENABLE_SHARED_TRUE@@ENABLE_STATIC_TRUE@      libdirs="-L@libdir@
++@ENABLE_SHARED_TRUE@@ENABLE_STATIC_TRUE@      libdirs="-L@libdir@"
  @ENABLE_SHARED_TRUE@@ENABLE_STATIC_TRUE@      echo $libdirs @SDL_LIBS@ @SHARED_SYSTEM_LIBS@
  @ENABLE_SHARED_TRUE@@ENABLE_STATIC_TRUE@      ;;
      *)
