@@ -1,6 +1,7 @@
---- SDL-1.2.4/configure.in.orig	Wed Apr 24 21:32:58 2002
-+++ SDL-1.2.4/configure.in	Wed Apr 24 21:40:04 2002
-@@ -1415,6 +1415,7 @@
+diff -Nru SDL-1.2.4.orig/configure.in SDL-1.2.4/configure.in
+--- SDL-1.2.4.orig/configure.in	Sun Apr 14 01:57:24 2002
++++ SDL-1.2.4/configure.in	Wed Jul 31 10:04:28 2002
+@@ -1414,6 +1414,7 @@
      fi
  }
  
@@ -8,3 +9,11 @@
  case "$target" in
      *-*-linux*)
          ARCH=linux
+@@ -2416,7 +2417,6 @@
+         OBJCDEPMODE="$CCDEPMODE"
+         AC_SUBST(OBJC)
+         AC_SUBST(OBJCFLAGS)
+-        AC_SUBST(OBJCDEPMODE)
+         ;;
+ esac
+ 
