@@ -84,9 +84,7 @@ Summary(zh_CN):	SDL (Simple DirectMedia Layer) ¿ª·¢¿â
 Group:		X11/Development/Libraries
 Requires:	%{name} = %{version}
 Requires:	XFree86-devel >= 4.0.2
-%ifnarch sparc sparc64
 %{!?_without_alsa:Requires:	alsa-lib-devel}
-%endif
 %{!?_without_arts:Requires:	arts-devel}
 %{!?_without_esd:Requires:	esound-devel}
 %{?_with_nas:Requires:	nas-devel}
