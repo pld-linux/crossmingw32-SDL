@@ -1,5 +1,5 @@
---- SDL-1.2.6/src/video/mmx.h.orig	2003-08-22 07:51:19.000000000 +0200
-+++ SDL-1.2.6/src/video/mmx.h	2003-11-09 13:49:35.270218296 +0100
+--- SDL-1.2.7/src/video/mmx.h.orig	2003-08-22 07:51:19.000000000 +0200
++++ SDL-1.2.7/src/video/mmx.h	2003-11-09 13:49:35.270218296 +0100
 @@ -246,15 +246,37 @@
  		printf(#op "_i2r(" #imm "=0x%08x%08x, ", \
  			mmx_trace.d[1], mmx_trace.d[0]); \
@@ -149,8 +149,7 @@
  #define	mmx_m2r(op, mem, reg) \
  	__asm__ __volatile__ (#op " %0, %%" #reg \
  			      : /* nothing */ \
--			      : "X" (mem))
-+			      : "m" (mem))
+ 			      : "m" (mem))
 +
 +/* 32 bits or less */
 +#define	mmx_r2m32(op, reg, mem) \
