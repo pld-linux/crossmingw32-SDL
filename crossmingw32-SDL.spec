@@ -12,8 +12,7 @@ Patch0:		%{realname}-byteorder.patch
 Patch1:		%{realname}-fixlibs.patch
 Patch2:		%{realname}-amfix.patch
 Patch3:		%{realname}-lpthread.patch
-Patch4:		%{realname}-ac25x.patch
-Patch5:		%{realname}-no_rpath_in_sdl-config.patch
+Patch4:		%{realname}-no_rpath_in_sdl-config.patch
 URL:		http://www.libsdl.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -77,7 +76,6 @@ SDL - biblioteka DLL dla Windows.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %build
 CC=%{target}-gcc ; export CC
