@@ -2,12 +2,13 @@
 Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - Mingw32 cross version
 Summary(pl):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skro¶na dla Mingw32
 Name:		crossmingw32-%{realname}
-Version:	1.2.7
-Release:	3
+Version:	1.2.8
+Release:	1
 License:	LGPL
 Group:		X11/Libraries
-Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
-# Source0-md5:	d29b34b6ba3ed213893fc9d8d35e357a
+#Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
+Source0:	http://www.libsdl.org/cvs/SDL-1.2.tar.gz
+# Source0-md5:	77664f9f13794f83261f3fde7e4eecfc
 Patch0:		%{realname}-byteorder.patch
 Patch2:		%{realname}-amfix.patch
 Patch3:		%{realname}-lpthread.patch
@@ -74,7 +75,7 @@ SDL - DLL library for Windows.
 SDL - biblioteka DLL dla Windows.
 
 %prep
-%setup -q -n %{realname}-%{version}
+%setup -q -n %{realname}-1.2
 %patch0 -p1
 %patch2 -p1
 %patch3 -p1
@@ -112,7 +113,7 @@ mv -f sdl.new sdl-config
 
 %if 0%{!?debug:1}
 %{target}-strip src/.libs/SDL.dll
-%{target}-strip -g -R.comment -R.note src/.libs/*.a
+#%{target}-strip -g -R.comment -R.note src/.libs/*.a
 %endif
 
 %install
