@@ -1,0 +1,23 @@
+--- SDL-1.1.7/include/SDL_byteorder.h.foo	Mon May  7 14:27:33 2001
++++ SDL-1.1.7/include/SDL_byteorder.h	Mon May  7 14:29:22 2001
+@@ -34,6 +34,12 @@
+ #define SDL_LIL_ENDIAN	1234
+ #define SDL_BIG_ENDIAN	4321
+ 
++
++#ifdef __linux__
++#include <endian.h>
++#define SDL_BYTEORDER __BYTE_ORDER
++#else
++
+ /* Pardon the mess, I'm trying to determine the endianness of this host.
+    I'm doing it by preprocessor defines rather than some sort of configure
+    script so that application code can use this too.  The "right" way would
+@@ -46,5 +52,7 @@
+ #else
+ #define SDL_BYTEORDER	SDL_BIG_ENDIAN
+ #endif
++
++#endif /* __linux __ */
+ 
+ #endif /* _SDL_byteorder_h */
