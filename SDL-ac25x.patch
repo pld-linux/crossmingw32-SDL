@@ -1,0 +1,10 @@
+--- SDL-1.2.4/configure.in.orig	Wed Apr 24 21:32:58 2002
++++ SDL-1.2.4/configure.in	Wed Apr 24 21:40:04 2002
+@@ -1415,6 +1415,7 @@
+     fi
+ }
+ 
++AM_CONDITIONAL(USE_DIRECTX,false)
+ case "$target" in
+     *-*-linux*)
+         ARCH=linux
