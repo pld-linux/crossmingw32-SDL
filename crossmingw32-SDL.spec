@@ -1,3 +1,10 @@
+#
+# Conditional build:
+# _without_alsa	- without alsa support
+# _without_arts	- without arts support
+# _without_esd	- without esound support
+# _with_nas	- with nas support
+#
 %define		realname	SDL
 Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library
 Summary(es):	Simple DirectMedia Layer
@@ -81,7 +88,7 @@ Requires:	XFree86-devel >= 4.0.2
 %{!?_without_alsa:Requires:	alsa-lib-devel}
 %endif
 %{!?_without_arts:Requires:	arts-devel}
-%{!?_without_esound:Requires:	esound-devel}
+%{!?_without_esd:Requires:	esound-devel}
 %{?_with_nas:Requires:	nas-devel}
 
 %description devel
