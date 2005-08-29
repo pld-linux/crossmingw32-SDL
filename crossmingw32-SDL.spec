@@ -2,17 +2,16 @@
 Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - Mingw32 cross version
 Summary(pl):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skro¶na dla Mingw32
 Name:		crossmingw32-%{realname}
-Version:	1.2.8
-Release:	2
+Version:	1.2.9
+Release:	1
 License:	LGPL
 Group:		X11/Libraries
 Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
-# Source0-md5:	37aaf9f069f9c2c18856022f35de9f8c
+# Source0-md5:	80919ef556425ff82a8555ff40a579a0
 Patch0:		%{realname}-byteorder.patch
 Patch2:		%{realname}-amfix.patch
 Patch3:		%{realname}-lpthread.patch
 URL:		http://www.libsdl.org/
-Requires:	crossmingw32-runtime
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	crossmingw32-gcc
@@ -20,11 +19,10 @@ BuildRequires:	crossmingw32-runtime
 BuildRequires:	crossmingw32-w32api
 BuildRequires:	crossmingw32-w32api-dx
 BuildRequires:	libtool >= 2:1.4d
-BuildConflicts:	crossmingw32-dx70
-%ifarch %{ix86}
 BuildRequires:	nasm
-%endif
 BuildRequires:	perl-modules
+BuildConflicts:	crossmingw32-dx70
+Requires:	crossmingw32-runtime
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		no_install_post_strip	1
