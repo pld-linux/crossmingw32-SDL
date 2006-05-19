@@ -2,15 +2,14 @@
 Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - Mingw32 cross version
 Summary(pl):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skro¶na dla Mingw32
 Name:		crossmingw32-%{realname}
-Version:	1.2.9
+Version:	1.2.10
 Release:	1
 License:	LGPL
-Group:		X11/Libraries
+Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
-# Source0-md5:	80919ef556425ff82a8555ff40a579a0
-Patch0:		%{realname}-byteorder.patch
-Patch2:		%{realname}-amfix.patch
-Patch3:		%{realname}-lpthread.patch
+# Source0-md5:	b7b46a866b8bf32df8c041a00e567c7d
+Patch0:		%{realname}-mmx-constraints.patch
+Patch1:		%{realname}-acfix.patch
 URL:		http://www.libsdl.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -75,8 +74,7 @@ SDL - biblioteka DLL dla Windows.
 %prep
 %setup -q -n %{realname}-%{version}
 %patch0 -p1
-%patch2 -p1
-%patch3 -p1
+%patch1 -p1
 
 %build
 CC=%{target}-gcc ; export CC
@@ -106,12 +104,12 @@ TARGET="%{target}" ; export TARGET
 %{__make}
 
 cat sdl-config | sed -e 's@-I/usr/include/SDL@-I%{arch}/include/SDL@' \
-	-e 's@libdirs="-L/usr/lib "@libdirs="-L%{arch}/lib"@' > sdl.new
+	-e 's@ -L/usr/lib @ -L%{arch}/lib @' > sdl.new
 mv -f sdl.new sdl-config
 
 %if 0%{!?debug:1}
-%{target}-strip src/.libs/SDL.dll
-#%{target}-strip -g -R.comment -R.note src/.libs/*.a
+%{target}-strip build/.libs/SDL.dll
+#%{target}-strip -g -R.comment -R.note build/.libs/*.a
 %endif
 
 %install
@@ -122,8 +120,8 @@ install -d $RPM_BUILD_ROOT%{_datadir}/wine/windows/system
 
 install include/*.h $RPM_BUILD_ROOT%{arch}/include/SDL
 install sdl-config $RPM_BUILD_ROOT%{arch}/bin/sdl-config
-install src/.libs/libSDL{,.dll}.a src/main/libSDLmain.a $RPM_BUILD_ROOT%{arch}/lib
-install src/.libs/SDL.dll $RPM_BUILD_ROOT%{_datadir}/wine/windows/system/
+install build/.libs/libSDL{,.dll}.a build/libSDLmain.a $RPM_BUILD_ROOT%{arch}/lib
+install build/.libs/SDL.dll $RPM_BUILD_ROOT%{_datadir}/wine/windows/system
 
 ln -s %{arch}/bin/sdl-config $RPM_BUILD_ROOT%{_bindir}/%{target}-sdl-config
 
