@@ -1,6 +1,6 @@
 %define		realname	SDL
 Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - Mingw32 cross version
-Summary(pl):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skro¶na dla Mingw32
+Summary(pl.UTF-8):   SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediÃ³w - wersja skroÅ›na dla Mingw32
 Name:		crossmingw32-%{realname}
 Version:	1.2.11
 Release:	1
@@ -47,28 +47,28 @@ keyboard. It can support both windowed and DGA modes of XFree86, and
 it is designed to be portable - applications linked with SDL can also
 be built on Win32 and BeOS.
 
-%description -l pl
-SDL (Simple DirectMedia Layer) jest bibliotek± udostêpniaj±c±
-przeno¶ny, niskopoziomowy dostêp do bufora ramki video, wyj¶cia audio,
-myszy oraz klawiatury. Mo¿e obs³ugiwaæ zarówno okienkowy tryb XFree86
-jak i DGA. Konstruuj±c j± miano na uwadze przeno¶no¶æ: aplikacje
-konsolidowane z SDL mo¿na równie¿ budowaæ w systemach Win32 i BeOS.
+%description -l pl.UTF-8
+SDL (Simple DirectMedia Layer) jest bibliotekÄ… udostÄ™pniajÄ…cÄ…
+przenoÅ›ny, niskopoziomowy dostÄ™p do bufora ramki video, wyjÅ›cia audio,
+myszy oraz klawiatury. MoÅ¼e obsÅ‚ugiwaÄ‡ zarÃ³wno okienkowy tryb XFree86
+jak i DGA. KonstruujÄ…c jÄ… miano na uwadze przenoÅ›noÅ›Ä‡: aplikacje
+konsolidowane z SDL moÅ¼na rÃ³wnieÅ¼ budowaÄ‡ w systemach Win32 i BeOS.
 
-%description -l pt_BR
-Esse é o Simple DirectMedia Layer, uma API genérica que dá acesso de
-baixo nível a áudio, teclado, mouse e vídeo em várias plataformas.
+%description -l pt_BR.UTF-8
+Esse Ã© o Simple DirectMedia Layer, uma API genÃ©rica que dÃ¡ acesso de
+baixo nÃ­vel a Ã¡udio, teclado, mouse e vÃ­deo em vÃ¡rias plataformas.
 
-Essa biblioteca é usada por alguns jogos.
+Essa biblioteca Ã© usada por alguns jogos.
 
 %package dll
 Summary:	SDL - DLL library for Windows
-Summary(pl):	SDL - biblioteka DLL dla Windows
+Summary(pl.UTF-8):   SDL - biblioteka DLL dla Windows
 Group:		Applications/Emulators
 
 %description dll
 SDL - DLL library for Windows.
 
-%description dll -l pl
+%description dll -l pl.UTF-8
 SDL - biblioteka DLL dla Windows.
 
 %prep
