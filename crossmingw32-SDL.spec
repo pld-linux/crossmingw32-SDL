@@ -4,7 +4,7 @@ Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimedi
 Name:		crossmingw32-%{realname}
 Version:	1.2.12
 Release:	1
-License:	LGPL
+License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
 # Source0-md5:	544b4554986e51eed6d34435cf9c5f3f
