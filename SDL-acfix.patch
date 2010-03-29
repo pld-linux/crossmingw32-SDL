@@ -1,11 +1,36 @@
---- SDL-1.2.10/configure.in.orig	2006-05-17 05:16:07.000000000 +0200
-+++ SDL-1.2.10/configure.in	2006-05-19 19:47:50.209990750 +0200
-@@ -40,7 +40,7 @@
- AC_SUBST(LT_AGE)
- 
- dnl Detect the canonical build and host environments
+--- SDL-1.2.14/configure.in.org	2010-03-29 21:38:33.976889923 +0200
++++ SDL-1.2.14/configure.in	2010-03-29 21:38:58.236890584 +0200
+@@ -2,7 +2,7 @@
+ AC_INIT(README)
+ AC_CONFIG_HEADER(include/SDL_config.h)
+ AC_GNU_SOURCE
 -AC_CONFIG_AUX_DIRS($srcdir/build-scripts)
 +AC_CONFIG_AUX_DIR([build-scripts])
- AC_CANONICAL_HOST
- AC_C_BIGENDIAN
- if test x$ac_cv_c_bigendian = xyes; then
+ 
+ dnl Set various version strings - taken gratefully from the GTk sources
+ #
+
+Ideas for patch from:
+http://www.mythtv.org/wiki/Windows_Port#SDL_-_libtool_cannot_build_libtool_library_libSDL.la
+--- SDL-1.2.14/Makefile.in.org	2010-03-29 21:58:23.768890123 +0200
++++ SDL-1.2.14/Makefile.in	2010-03-29 21:59:23.177902456 +0200
+@@ -76,7 +76,7 @@
+ include $(depend)
+ 
+ $(objects)/$(TARGET): $(OBJECTS)
+-	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJECTS) $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(subst version.o,version.lo,$(OBJECTS)) $(LDFLAGS) $(EXTRA_LDFLAGS) $(LT_LDFLAGS)
+ 
+ $(objects)/$(SDLMAIN_TARGET): $(SDLMAIN_OBJECTS)
+ 	$(AR) cru $@ $(SDLMAIN_OBJECTS)
+--- SDL-1.2.14/build-scripts/makedep.sh.org	2010-03-29 22:07:03.642140221 +0200
++++ SDL-1.2.14/build-scripts/makedep.sh	2010-03-29 22:07:54.638889840 +0200
+@@ -81,7 +81,7 @@
+         ;;
+         rc) cat >>${output}.new <<__EOF__
+ 
+-	\$(WINDRES) $src \$@
++	\$(LIBTOOL)  --tag=RC --mode=compile \$(WINDRES) $src  -o \$@
+ 
+ __EOF__
+         ;;
