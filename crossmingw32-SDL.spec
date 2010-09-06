@@ -17,7 +17,7 @@ BuildRequires:	crossmingw32-gcc
 BuildRequires:	crossmingw32-runtime
 BuildRequires:	crossmingw32-w32api
 BuildRequires:	crossmingw32-w32api-dx
-BuildRequires:	libtool >= 2:1.4d
+BuildRequires:	libtool >= 2:2.0
 BuildRequires:	nasm
 BuildRequires:	perl-modules
 BuildConflicts:	crossmingw32-dx70
@@ -37,10 +37,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
 
-%ifarch alpha sparc sparc64 sparcv9
-# alpha's -mieee and sparc's -mtune=* are not valid for target's gcc
+%ifnarch %{ix86}
+# arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
 %define		optflags	-O2
 %endif
+# -z options are invalid for mingw linker
+%define		filterout_ld	-Wl,-z,.*
 
 %description
 SDL (Simple DirectMedia Layer) is a library that allows you portable,
