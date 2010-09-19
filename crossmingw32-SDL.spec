@@ -1,6 +1,6 @@
 %define		realname	SDL
-Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - Mingw32 cross version
-Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skrośna dla Mingw32
+Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - MinGW32 cross version
+Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
 Version:	1.2.14
 Release:	1
@@ -69,16 +69,16 @@ baixo nível a áudio, teclado, mouse e vídeo em várias plataformas.
 Essa biblioteca é usada por alguns jogos.
 
 %package static
-Summary:	Static SDL library (cross mingw32 version)
-Summary(pl.UTF-8):	Statyczna biblioteka SDL (wersja skrośna mingw32)
+Summary:	Static SDL library (cross MinGW32 version)
+Summary(pl.UTF-8):	Statyczna biblioteka SDL (wersja skrośna MinGW32)
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description static
-Static SDL library (cross mingw32 version).
+Static SDL library (cross MinGW32 version).
 
 %description static -l pl.UTF-8
-Statyczna biblioteka SDL (wersja skrośna mingw32).
+Statyczna biblioteka SDL (wersja skrośna MinGW32).
 
 %package dll
 Summary:	SDL - DLL library for Windows
