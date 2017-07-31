@@ -3,7 +3,7 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - MinGW32 cros
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
 Version:	1.2.15
-Release:	2
+Release:	3
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
@@ -13,6 +13,7 @@ URL:		http://www.libsdl.org/
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	crossmingw32-gcc
+BuildRequires:	crossmingw32-gcc-c++
 BuildRequires:	crossmingw32-runtime
 BuildRequires:	crossmingw32-w32api
 BuildRequires:	crossmingw32-w32api-dx
@@ -41,8 +42,10 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 # arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
 %define		optflags	-O2
 %endif
-# -z options are invalid for mingw linker
+# -z options are invalid for mingw linker, most of -f options are Linux-specific
 %define		filterout_ld	-Wl,-z,.*
+%define		filterout_c	-f[-a-z0-9=]*
+%define		filterout_cxx	-f[-a-z0-9=]*
 
 %description
 SDL (Simple DirectMedia Layer) is a library that allows you portable,
@@ -117,7 +120,7 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT{%{_dlldir},%{_sysprefix}/bin}
-mv -f $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
+%{__mv} $RPM_BUILD_ROOT%{_prefix}/bin/*.dll $RPM_BUILD_ROOT%{_dlldir}
 ln -s %{_bindir}/sdl-config $RPM_BUILD_ROOT%{_sysprefix}/bin/%{target}-sdl-config
 
 %if 0%{!?debug:1}
@@ -125,7 +128,7 @@ ln -s %{_bindir}/sdl-config $RPM_BUILD_ROOT%{_sysprefix}/bin/%{target}-sdl-confi
 %{target}-strip -g -R.comment -R.note $RPM_BUILD_ROOT%{_libdir}/*.a
 %endif
 
-rm -rf $RPM_BUILD_ROOT%{_datadir}/{aclocal,man}
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/{aclocal,man}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -138,6 +141,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libSDL.dll.a
 %{_libdir}/libSDL.la
 %{_libdir}/libSDLmain.a
+%{_libdir}/libSDLmain.la
 %{_includedir}/SDL
 %{_pkgconfigdir}/sdl.pc
 
