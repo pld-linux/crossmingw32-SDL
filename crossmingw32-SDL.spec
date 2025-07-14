@@ -96,7 +96,7 @@ SDL - biblioteka DLL dla Windows.
 
 %prep
 %setup -q -n %{realname}-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 : > acinclude.m4
 echo 'AC_DEFUN([AM_PATH_ESD],[$3])' >> acinclude.m4
