@@ -3,7 +3,7 @@ Summary:	SDL (Simple DirectMedia Layer) - Game/Multimedia Library - MinGW32 cros
 Summary(pl.UTF-8):	SDL (Simple DirectMedia Layer) - Biblioteka do gier/multimediów - wersja skrośna dla MinGW32
 Name:		crossmingw32-%{realname}
 Version:	1.2.15
-Release:	5
+Release:	6
 License:	LGPL v2.1+
 Group:		Libraries
 Source0:	http://www.libsdl.org/release/%{realname}-%{version}.tar.gz
@@ -34,10 +34,12 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		_prefix			%{_sysprefix}/%{target}
 %define		_libdir			%{_prefix}/lib
 %define		_pkgconfigdir		%{_prefix}/lib/pkgconfig
+%define		_docdir			%{_sysprefix}/share/doc
 %define		_dlldir			/usr/share/wine/windows/system
 %define		__cc			%{target}-gcc
 %define		__cxx			%{target}-g++
 %define		__pkgconfig_provides	%{nil}
+%define		__pkgconfig_requires	%{nil}
 
 %ifnarch %{ix86}
 # arch-specific flags (like alpha's -mieee) are not valid for i386 gcc
